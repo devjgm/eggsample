@@ -21,6 +21,10 @@ jobs:
         with:
           vcpkgGitCommitId: "31a159c1cae2bf905299085d9ef01bdfea0ca7b8"
 
+      # macOS runners are missing pkg-config
+      - run: [[ "$(uname -o)" == "Darwin" ]] && brew install pkg-config
+        shell: bash
+
       - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
       - run: ./cmake-out/src/eggsample
