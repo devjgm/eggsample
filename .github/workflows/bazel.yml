@@ -1,0 +1,16 @@
+name: Test the Bazel build
+run-name: Testing the Bazel build
+on: [push]
+jobs:
+  cmake-build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: bazelbuild/setup-bazelisk@v2
+
+      - run: bazelisk test --enable_bzlmod --test_output=errors ...

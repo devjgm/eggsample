@@ -4,5 +4,5 @@
 
 TEST(Eggs, Basic) {
   eggsample::Eggs e;
-  EXPECT_EQ(e.Message(), "HelloEggs");
+  EXPECT_EQ(e.Message(), "Hello Eggs");
 }
