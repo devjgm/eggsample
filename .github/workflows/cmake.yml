@@ -33,3 +33,4 @@ jobs:
       - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
       - run: ./cmake-out/src/eggsample
+      - run: ctest --test-dir cmake-out --output-on-failure
