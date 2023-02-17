@@ -23,7 +23,7 @@ jobs:
 
       - name: Installing pkg-config if on macOS
         run: >
-          [[ "$(uname -o)" == "Darwin" ]] && brew install pkg-config
+          [[ "$(uname -s)" == "Darwin" ]] && brew install pkg-config
         shell: bash
 
       - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
