@@ -1,0 +1,13 @@
+name: Test the CMake build
+run-name: ${{ github.actor }} is the CMake build
+on: [push]
+jobs:
+  cmake-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gets the latest CMake
+        uses: lukka/get-cmake@latest
+
+      - run: cmake -S. -Bcmake-out
+      - run: cmake --build cmake-out
+      - run: ./cmake-out/src/eggsample
