@@ -22,9 +22,8 @@ jobs:
           vcpkgGitCommitId: "31a159c1cae2bf905299085d9ef01bdfea0ca7b8"
 
       - name: Installing pkg-config if on macOS
-        run: >
-          [[ "$(uname -s)" == "Darwin" ]] && brew install pkg-config
-        shell: bash
+        run: brew install pkg-config
+        if: "${{ matrix.os }}" == "macos-latest"
 
       - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
