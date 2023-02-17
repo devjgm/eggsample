@@ -16,6 +16,9 @@ jobs:
       - name: Gets the latest CMake
         uses: lukka/get-cmake@latest
 
-      - run: cmake -S. -Bcmake-out
+      - name: Restore artifacts, or setup vcpkg (do not install any package)
+        uses: lukka/run-vcpkg@v10
+
+      - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
       - run: ./cmake-out/src/eggsample
