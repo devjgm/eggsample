@@ -16,4 +16,4 @@ jobs:
 
       - run: cmake -S. -Bcmake-out
       - run: cmake --build cmake-out
-      - run: ./cmake-out/src/eggsample
+      - run: ./cmake-out/src/eggsample || ./cmake-out/src/eggsample.exe
