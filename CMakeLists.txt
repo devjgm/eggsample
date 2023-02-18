@@ -7,5 +7,4 @@ target_compile_features(project-settings INTERFACE cxx_std_14)
 target_include_directories(project-settings INTERFACE ${PROJECT_SOURCE_DIR})
 
 include(CTest)
-
 add_subdirectory(src)
