@@ -23,7 +23,7 @@ jobs:
 
       # This is nasty. See if there's a way to get rid of this.
       - name: Installing pkg-config if on macOS
-        if: ${{ matrix.os == 'macos-latest' }}
+        if: matrix.os == 'macos-latest'
         run: brew install pkg-config
 
       - run: cmake -S. -Bcmake-out -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
