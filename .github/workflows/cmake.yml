@@ -7,6 +7,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        config: [Debug, Release]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
@@ -25,6 +26,6 @@ jobs:
         if: ${{ matrix.os == 'macos-latest' }}
         run: brew install pkg-config
 
-      - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+      - run: cmake -S. -Bcmake-out -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
-      - run: ctest --test-dir cmake-out --output-on-failure
+      - run: ctest --test-dir cmake-out --output-on-failure -C ${{ matrix.config }}
