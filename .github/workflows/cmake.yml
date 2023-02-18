@@ -4,6 +4,7 @@ on: [push]
 jobs:
   cmake-build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -21,12 +22,14 @@ jobs:
 
       # This is nasty. See if there's a way to get rid of this.
       - name: Installing pkg-config if on macOS
+        shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            brew install pkg-config
-          else
-            true
-          fi
+          echo '
+          if (APPLE)
+            message(STATUS "Running on Apple, installing pkg-config")
+            execute_process(COMMAND brew install pkg-config)
+          endif()
+          ' | cmake -P /dev/stdin
 
       - run: cmake -S. -Bcmake-out -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - run: cmake --build cmake-out
